@@ -1,14 +1,18 @@
 import "./SavedCities.css";
 import RenderCities from "./components/RenderCities.tsx";
-import { type FC } from "react";
+import React, { type FC } from "react";
 
-const SavedCities: FC = () => {
+interface Props {
+    setCity:  React.Dispatch<React.SetStateAction<{ lat?: number, lon?: number, city?: string }>>;
+}
+
+const SavedCities: FC<Props> = ({setCity}) => {
     return (
         <div className="SavedCities">
             <header>
                 <p>Saved Cities</p>
             </header>
-            <RenderCities/>
+            <RenderCities setCity={setCity}/>
         </div>
     );
 }

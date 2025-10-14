@@ -1,9 +1,12 @@
-import { useState, useEffect, useCallback, type FC } from 'react';
+import React, { useState, useEffect, useCallback, type FC } from 'react';
 import UnsaveButton from "./unsave/UnsaveButton.tsx";
 import {getCities} from "./get/getCities.ts";
 
+interface Props {
+    setCity:  React.Dispatch<React.SetStateAction<{ lat?: number, lon?: number, city?: string }>>;
+}
 
-const CityList: FC = () => {
+const CityList: FC<Props> = ( {setCity}) => {
     const [cities, setCities] = useState<string[]>(getCities);
 
     useEffect(() => {
@@ -29,7 +32,7 @@ const CityList: FC = () => {
     return (
         <ul className={"SavedCitiesList"}>
             {cities.map((city) => (
-                <li key={city}>
+                <li key={city} onClick={() => setCity({city})}>
                     <span>{city}</span>
                     <UnsaveButton name={city} onUnsave={() => handleUnsaveCity(city)} />
                 </li>

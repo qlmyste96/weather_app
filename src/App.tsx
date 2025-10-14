@@ -12,7 +12,7 @@ function App() {
             <main>
                 <ViewData city={cityCoords} />
                 <div className="Bottom">
-                    <SavedCities/>
+                    <SavedCities setCity={setCityCoords}/>
                 </div>
             </main>
             <footer>Made by Leonid Romanenko</footer>
