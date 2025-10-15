@@ -9,7 +9,7 @@ interface Props {
 }
 
 function ViewData({ city }: Props) {
-    const data = useGetWeather(city);
+    const {data, isError} = useGetWeather(city);
     const [checked, setChecked] = useState<boolean>(false);
 
     useEffect(() => {
@@ -39,6 +39,9 @@ function ViewData({ city }: Props) {
 
     }, [checked, data]);
 
+    if(isError) {
+        return <div className="viewData"><h2>Error fetching data. Please try again.</h2></div>;
+    }
 
     return (
         <div className="viewData">

@@ -1,4 +1,4 @@
-.SavedCities {
+.SavedCities, .PreviouslyViewedCities {
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -21,7 +21,7 @@
         text-underline-offset: 5px;
     }
 }
-.SavedCitiesList {
+.SavedCitiesList, .PreviousCitiesList {
     transition: .3s;
     display: flex;
     flex-direction: column;

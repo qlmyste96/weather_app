@@ -1,6 +1,7 @@
 import "./header.css";
 import React, { useState, useMemo, useCallback } from "react";
 import { useQueryClient } from "@tanstack/react-query";
+import {saveCityToStorage} from "../previous/components/save/saveCity.ts";
 
 interface Coord { lat: number; lon: number; }
 interface City { id: number; name: string; state: string; country: string; coord: Coord; }
@@ -42,6 +43,7 @@ const Header = ({ setCity }: Props) => {
 
     const handleSubmit = useCallback((event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        saveCityToStorage({name: searchTerm})
         setCity({city: searchTerm});
         setShowResults(false);
         queryClient.invalidateQueries({ queryKey: ["weather"] });
@@ -49,6 +51,7 @@ const Header = ({ setCity }: Props) => {
 
     const handleCitySelect = useCallback((cityCoord: Coord, cityName: string) => {
         setSearchTerm(cityName);
+        saveCityToStorage({name: cityName, lat: cityCoord.lat, lon: cityCoord.lon});
         setCity({lat: cityCoord.lat, lon: cityCoord.lon});
         setShowResults(false);
         queryClient.invalidateQueries({ queryKey: ["weather"] });

@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { type IWeather, OpenWeatherApi } from "./request/openWeatherRequest.ts";
+import { OpenWeatherApi } from "./request/openWeatherRequest.ts";
 import { useEffect, useState } from "react";
 
-export const useGetWeather = (city: { lat?: number, lon?: number, city?: string }): IWeather | undefined => {
+export const useGetWeather = (city: { lat?: number, lon?: number, city?: string }) => {
     const [coords, setCoords] = useState<{ lat?: number; lon?: number }>({});
 
     useEffect(() => {
@@ -11,7 +11,7 @@ export const useGetWeather = (city: { lat?: number, lon?: number, city?: string 
         });
     }, []);
 
-    const {data} = useQuery({
+    const data = useQuery({
         queryKey: ["weather", city, coords],
 
         queryFn: () => OpenWeatherApi(city, coords.lat, coords.lon),
@@ -20,10 +20,10 @@ export const useGetWeather = (city: { lat?: number, lon?: number, city?: string 
     });
 
     useEffect(() => {
-        if (data) {
-            document.title = `Weather in ${data.name}`;
+        if (data.data) {
+            document.title = `Weather in ${data.data.name}`;
         }
-    }, [data]);
+    }, [data.data]);
 
     return data;
 };
