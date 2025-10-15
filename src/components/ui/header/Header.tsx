@@ -2,6 +2,7 @@ import "./header.css";
 import React, { useState, useMemo, useCallback } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import {saveCityToStorage} from "../previous/components/save/saveCity.ts";
+import {useTheme} from "../theme/toggleSwitchTheme.ts";
 
 interface Coord { lat: number; lon: number; }
 interface City { id: number; name: string; state: string; country: string; coord: Coord; }
@@ -9,6 +10,7 @@ interface Props { setCity:  React.Dispatch<React.SetStateAction<{ lat?: number, 
 
 
 const Header = ({ setCity }: Props) => {
+    const { theme, toggleTheme } = useTheme();
     const [searchTerm, setSearchTerm] = useState<string>('');
     const [showResults, setShowResults] = useState(false);
 
@@ -105,7 +107,9 @@ const Header = ({ setCity }: Props) => {
                         </div>
                     )}
                 </form>
-                <button className="HelpBtn">Help</button>
+                <button className="HelpBtn" onClick={toggleTheme}>
+                    {theme === 'light' ? '🌙' : '☀️'}
+                </button>
             </div>
         </header>
     );
